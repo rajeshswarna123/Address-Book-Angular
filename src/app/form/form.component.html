@@ -1,0 +1,79 @@
+
+   <form id="contact-form" #contactForm="ngForm" (ngSubmit) = saveContact() >
+        <div class="form-horizontal">
+        
+            <div class="form-element">
+                <label class="name-label" for="Name">Name</label>
+                <div>
+                    <input id="Name" name="Name" [(ngModel)]="contact.name" type="text" placeholder="Your Name..." required #name="ngModel">
+                    <span id="nameRequired" class="error-message" *ngIf="name.touched && name.invalid"> *name is required </span>
+                </div>
+            </div>
+    
+            <div class="form-element">
+                <label for="Email">Email</label>
+                <div>
+                    <input id="Email" name="Email" [(ngModel)]="contact.email" type="text" placeholder="Your Email..." #email="ngModel" required email> 
+                    <span id="emailRequired" class="error-message" *ngIf="email.touched && email.errors?.required"> *email is required </span>
+                    <span id="emailInvalid" class="error-message" *ngIf="email.touched && email.errors?.email"> *enter valid email </span>
+                </div>
+            </div>
+            <div class="form-element">
+                <label for="Gender">Gender</label>
+                <div>
+                    <label>
+                        <input type="radio" name="gender" class="gender" [(ngModel)]="gender" value="male"> Male
+                    </label>
+                    <label>
+                        <input type="radio" name="gender" class="gender" [(ngModel)]="gender" value="female"> Female
+                    </label>
+                    <label>
+                        <input type="radio" name="gender" class="gender" [(ngModel)]="gender" value="other"> Other
+                    </label>
+                    <span id="genderRequired"> *gender is required </span>
+                </div>
+            </div>
+            <div id="contact-number">
+                <div class="form-element">
+                    <label for="Mobile">Mobile</label>
+                    <div>
+                        <input id="Mobile" name="Mobile" [(ngModel)]="contact.mobile" type="text" required pattern="^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$" placeholder="Your Mobile Number..." #mobile="ngModel">
+                        <span id="mobileRequired" class="error-message" *ngIf="mobile.touched && mobile.errors?.required"> *mobile is required </span>
+                        <span id="mobileInvalid" class="error-message" *ngIf="mobile.touched && mobile.errors?.pattern"> *mobile is Invalid </span>
+                    </div>
+                </div>
+    
+                <div class="form-element" id="landlineDiv">
+                    <label for="Landline">Landline</label><div>
+                        <input id="Landline" name="Landline" [(ngModel)]="contact.landline" type="text" placeholder="Your Landline Number...">
+                        <span id="landlineRequired"> *landline is required </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-element">
+                <label for="Website">Website</label>
+                <div>
+                    <input id="Website" name="Website" [(ngModel)]="contact.website" type="text" placeholder="Your Website">
+                    <span id="websiteRequired"> *website is required </span>
+                </div>
+            </div>
+    
+            <div class="form-element">
+                <label for="Address">Address</label>
+                <div>
+                    <input id="Address" name="Address" [(ngModel)]="contact.address" type="text" placeholder="Your Address">
+                    <span id="addressRequired"> *address is required </span>
+                </div>
+            </div>
+    
+            <div class="form-element buttons">
+                <div>
+                    <a routerLink="/">Cancel</a>
+                    <button type="submit" class="btn btn-success" [disabled] ="contactForm.invalid">Add</button>
+                </div>
+            </div>
+        </div>
+        {{contactForm.value|json}}
+        <br>
+        {{contact|json}}
+    </form>
